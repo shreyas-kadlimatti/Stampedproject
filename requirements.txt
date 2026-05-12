@@ -1,0 +1,9 @@
+numpy
+opencv-python
+matplotlib
+scipy
+jupyter
+pandas
+torch
+torchvision
+# -e. git 
