@@ -1,0 +1,121 @@
+STEP 1 — Dataset Preparation ✅
+
+You downloaded:
+
+ShanghaiTech Dataset
+
+and organized:
+
+images
+annotations
+STEP 2 — Annotation Extraction ✅
+
+You extracted:
+
+head coordinates
+
+from:
+
+GT_IMG_x.mat
+
+Example:
+
+(x,y) head locations
+STEP 3 — Head Visualization ✅
+
+You plotted:
+
+red dots on heads
+
+to verify:
+
+annotation correctness
+STEP 4 — Ground Truth Crowd Counting ✅
+
+You counted:
+
+Crowd Count=Number of Head Coordinates
+
+This was only:
+
+training ground truth
+NOT final prediction
+STEP 5 — Density Map Generation ✅
+
+You converted:
+
+head coordinates
+
+into:
+
+Gaussian density maps
+
+Pipeline:
+
+Head Coordinates
+      ↓
+Gaussian Distribution
+      ↓
+Density Map
+STEP 6 — Whole Dataset Automation ✅
+
+You generated density maps for:
+
+ALL train images
+
+Output:
+
+IMG_1.npy
+IMG_2.npy
+...
+
+These .npy files are:
+
+ground truth density maps
+
+used for CNN training.
+
+STEP 7 — Dataset Loader ✅
+
+You created:
+
+dataset_loader.py
+
+This automatically loads:
+
+image
+matching density map
+
+together.
+
+So now your training pair becomes:
+
+Input  = crowd image
+Target = density map
+CURRENT STEP — CSRNet Model 🔄
+
+Now you are building:
+
+CSRNet
+
+which learns:
+
+crowd image → density map
+
+automatically.
+
+What Happens NEXT
+
+Now begins actual deep learning.
+
+NEXT PROCESS AFTER CSRNet
+STEP 8 — Training the Model 🔜
+
+This is the MOST important upcoming stage.
+
+You will:
+
+feed images into CSRNet
+compare predicted density map vs real density map
+calculate error
+update weights
