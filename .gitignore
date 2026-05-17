@@ -1,1 +1,9 @@
-
+dataset/
+venv/
+venv310/
+__pycache__/
+.DS_Store
+*.pth
+*.pt
+updates.txt
+workflow.txt
