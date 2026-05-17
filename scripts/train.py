@@ -1,14 +1,28 @@
-import sys
+# import sys
+# import os
+
+# # ===================================================
+# # ADD PROJECT ROOT
+# # ===================================================
+# sys.path.append(
+#     os.path.abspath(
+#         os.path.join(os.path.dirname(__file__), "..")
+#     )
+# )
 import os
+import sys
 
 # ===================================================
-# ADD PROJECT ROOT
+# PROJECT ROOT
 # ===================================================
-sys.path.append(
-    os.path.abspath(
-        os.path.join(os.path.dirname(__file__), "..")
-    )
+BASE_DIR = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), "..")
 )
+
+# ===================================================
+# ADD ROOT TO PYTHON PATH
+# ===================================================
+sys.path.append(BASE_DIR)
 
 import torch
 import torch.nn as nn
@@ -30,10 +44,19 @@ print("Using Device:", device)
 # ===================================================
 # DATASET PATHS
 # ===================================================
-image_dir = "/content/Stampede/dataset/ShanghaiTech/part_A/train_data/images"
+image_dir = os.path.join(
+    BASE_DIR,
+    "dataset",
+    "ShanghaiTech",
+    "part_A",
+    "train_data",
+    "images"
+)
 
-density_dir = "/content/Stampede/density_maps"
-
+density_dir = os.path.join(
+    BASE_DIR,
+    "density_maps"
+)
 # ===================================================
 # LOAD DATASET
 # ===================================================
@@ -163,7 +186,10 @@ for epoch in range(epochs):
 # ===================================================
 # SAVE MODEL
 # ===================================================
-save_path = "/content/Stampede/csrnet.pth"
+save_path = os.path.join(
+    BASE_DIR,
+    "csrnet.pth"
+)
 
 torch.save(
     model.state_dict(),

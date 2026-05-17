@@ -4,15 +4,45 @@ import numpy as np
 from scipy.io import loadmat
 from scipy.ndimage import gaussian_filter
 from tqdm import tqdm
+import os
+import sys
 
+# ===================================================
+# PROJECT ROOT
+# ===================================================
+BASE_DIR = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), "..")
+)
+
+# ===================================================
+# ADD ROOT TO PYTHON PATH
+# ===================================================
+sys.path.append(BASE_DIR)
 # ===================================================
 # DATASET PATHS
 # ===================================================
-image_dir = "/content/Stampede/dataset/ShanghaiTech/part_A/train_data/images"
+image_dir = os.path.join(
+    BASE_DIR,
+    "dataset",
+    "ShanghaiTech",
+    "part_A",
+    "train_data",
+    "images"
+)
 
-gt_dir = "/content/Stampede/dataset/ShanghaiTech/part_A/train_data/ground-truth"
+gt_dir = os.path.join(
+    BASE_DIR,
+    "dataset",
+    "ShanghaiTech",
+    "part_A",
+    "train_data",
+    "ground-truth"
+)
 
-output_dir = "/content/Stampede/density_maps"
+output_dir = os.path.join(
+    BASE_DIR,
+    "density_maps"
+)
 
 # Create output folder
 os.makedirs(output_dir, exist_ok=True)

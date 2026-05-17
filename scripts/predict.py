@@ -1,15 +1,28 @@
-import sys
+# import sys
+# import os
+
+# # ===================================================
+# # ADD PROJECT ROOT
+# # ===================================================
+# sys.path.append(
+#     os.path.abspath(
+#         os.path.join(os.path.dirname(__file__), "..")
+#     )
+# )
 import os
+import sys
 
 # ===================================================
-# ADD PROJECT ROOT
+# PROJECT ROOT
 # ===================================================
-sys.path.append(
-    os.path.abspath(
-        os.path.join(os.path.dirname(__file__), "..")
-    )
+BASE_DIR = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), "..")
 )
 
+# ===================================================
+# ADD ROOT TO PYTHON PATH
+# ===================================================
+sys.path.append(BASE_DIR)
 import cv2
 import torch
 import numpy as np
@@ -31,8 +44,13 @@ print("Using Device:", device)
 # ===================================================
 model = CSRNet().to(device)
 
+model_path = os.path.join(
+    BASE_DIR,
+    "csrnet.pth"
+)
+
 model.load_state_dict(
-    torch.load("csrnet.pth", map_location=device)
+    torch.load(model_path, map_location=device)
 )
 
 model.eval()
@@ -42,7 +60,14 @@ print("Model Loaded Successfully!")
 # ===================================================
 # IMAGE PATH
 # ===================================================
-test_dir = "/content/Stampede/dataset/ShanghaiTech/part_A/test_data/images"
+test_dir = os.path.join(
+    BASE_DIR,
+    "dataset",
+    "ShanghaiTech",
+    "part_A",
+    "test_data",
+    "images"
+)
 image_files = sorted(os.listdir(test_dir))[:20]
 
 # ===================================================
