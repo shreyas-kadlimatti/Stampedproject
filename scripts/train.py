@@ -180,50 +180,50 @@ for epoch in range(epochs):
 # ===================================================
 # EPOCH LOSS
 # ===================================================
-epoch_loss = running_loss / len(dataloader)
+    epoch_loss = running_loss / len(dataloader)
 
-print(f"\nEpoch Loss: {epoch_loss:.6f}")
+    print(f"\nEpoch Loss: {epoch_loss:.6f}")
 
-# ===================================================
-# SAVE CHECKPOINT AFTER EVERY EPOCH
-# ===================================================
-checkpoint_path = os.path.join(
-    BASE_DIR,
-    f"csrnet_epoch_{epoch+1}.pth"
-)
+    # ===================================================
+    # SAVE CHECKPOINT AFTER EVERY EPOCH
+    # ===================================================
+    checkpoint_path = os.path.join(
+        BASE_DIR,
+        f"csrnet_epoch_{epoch+1}.pth"
+    )
 
-torch.save(
-    model.state_dict(),
-    checkpoint_path
-)
+    torch.save(
+        model.state_dict(),
+        checkpoint_path
+    )
 
-print("Checkpoint Saved:", checkpoint_path)
+    print("Checkpoint Saved:", checkpoint_path)
 
-# ===================================================
-# SAVE TO GOOGLE DRIVE
-# ===================================================
-drive_checkpoint_path = f"/content/drive/MyDrive/csrnet_epoch_{epoch+1}.pth"
+    # ===================================================
+    # SAVE TO GOOGLE DRIVE
+    # ===================================================
+    drive_checkpoint_path = f"/content/drive/MyDrive/csrnet_epoch_{epoch+1}.pth"
 
-torch.save(
-    model.state_dict(),
-    drive_checkpoint_path
-)
+    torch.save(
+        model.state_dict(),
+        drive_checkpoint_path
+    )
 
-print("Drive Backup Saved:", drive_checkpoint_path)
+    print("Drive Backup Saved:", drive_checkpoint_path)
 
-# ===================================================
-# SAVE MODEL
-# ===================================================
-save_path = os.path.join(
-    BASE_DIR,
-    "csrnet.pth"
-)
+    # ===================================================
+    # SAVE MODEL
+    # ===================================================
+    save_path = os.path.join(
+        BASE_DIR,
+        "csrnet.pth"
+    )
 
-torch.save(
-    model.state_dict(),
-    save_path
-)
+    torch.save(
+        model.state_dict(),
+        save_path
+    )
 
-print("\nModel Saved Successfully!")
+    print("\nModel Saved Successfully!")
 
-print("Saved To:", save_path)
+    print("Saved To:", save_path)
