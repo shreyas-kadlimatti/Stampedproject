@@ -97,7 +97,7 @@ optimizer = torch.optim.Adam(
 # ===================================================
 # TRAINING LOOP
 # ===================================================
-epochs = 25
+epochs = 50
 
 for epoch in range(epochs):
 
@@ -176,12 +176,40 @@ for epoch in range(epochs):
                 f"Pred Count: {pred_count:.2f}"
             )
 
-    # ===================================================
-    # EPOCH LOSS
-    # ===================================================
-    epoch_loss = running_loss / len(dataloader)
 
-    print(f"\nEpoch Loss: {epoch_loss:.6f}")
+# ===================================================
+# EPOCH LOSS
+# ===================================================
+epoch_loss = running_loss / len(dataloader)
+
+print(f"\nEpoch Loss: {epoch_loss:.6f}")
+
+# ===================================================
+# SAVE CHECKPOINT AFTER EVERY EPOCH
+# ===================================================
+checkpoint_path = os.path.join(
+    BASE_DIR,
+    f"csrnet_epoch_{epoch+1}.pth"
+)
+
+torch.save(
+    model.state_dict(),
+    checkpoint_path
+)
+
+print("Checkpoint Saved:", checkpoint_path)
+
+# ===================================================
+# SAVE TO GOOGLE DRIVE
+# ===================================================
+drive_checkpoint_path = f"/content/drive/MyDrive/csrnet_epoch_{epoch+1}.pth"
+
+torch.save(
+    model.state_dict(),
+    drive_checkpoint_path
+)
+
+print("Drive Backup Saved:", drive_checkpoint_path)
 
 # ===================================================
 # SAVE MODEL
