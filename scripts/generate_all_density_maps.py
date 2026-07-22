@@ -108,7 +108,7 @@ for img_name in tqdm(image_files):
     # APPLY GAUSSIAN FILTER
     # -----------------------------------------------
     density = gaussian_filter(density,
-                              sigma=15)
+                              sigma=4)
 
     # -----------------------------------------------
     # SAVE DENSITY MAP
