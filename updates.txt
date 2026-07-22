@@ -1,52 +1,375 @@
-1.So firstly extracted head points in a single image and took a count of the head.(load_data.py)
-2.Secondly what I did was took a density map for a single image.(generate_density.py)
-3.Further I got to know that head count is not possible on a large datasets as there are more number of images so I decided to go with density map
-4.I created a folder (density_maps) which stores density maps of all images.
-5.So density map for all the images of train_data was stored.(generate_all_density_maps.py)
+# AI-Based Stampede Prediction and Crowd Density Estimation using CSRNet
 
+## Project Overview
 
-Dataset Images
-      +
-Head Annotations
-            ↓
-Density Map Generation   ✅
-            ↓
-Training Dataset Creation
-            ↓
-CNN Training
-            ↓
-Crowd Prediction
-            ↓
-Stampede Risk Analysis
+This project aims to estimate crowd density and crowd count from a single image using a deep learning approach. Instead of detecting each individual person, the model predicts a density map whose pixel sum represents the estimated number of people present in the scene.
 
-| Feature               | MCNN             | CSRNet      |
-| --------------------- | ---------------- | ----------- |
-| Architecture          | Multi-column CNN | Dilated CNN |
-| Accuracy              | Moderate         | High        |
-| Dense Crowd Handling  | Good             | Excellent   |
-| ShanghaiTech Part_A   | Older benchmark  | Much better |
-| Complexity            | Easier           | Moderate    |
-| Modern Research Usage | Less common now  | Widely used |
-| Stampede Suitability  | Decent           | Strong      |
+The project is based on the **CSRNet (Congested Scene Recognition Network)** architecture and uses the **ShanghaiTech Part A** dataset for training and evaluation.
 
+---
 
-Image
-   ↓
-CSRNet
-   ↓
-Predicted Density Map
-   ↓
-Compare With Ground Truth Density Map
-   ↓
-Loss Calculation
-   ↓
-Backpropagation
-   ↓
-Weight Update
+# Project Workflow
 
-overcrowding analysis
-dangerous region detection
-motion analysis
-optical flow
-LSTM prediction
-stampede risk estimation
+```
+ShanghaiTech Part A Dataset
+            │
+            ▼
+Ground Truth Head Annotations (.mat)
+            │
+            ▼
+Geometry-Adaptive Density Map Generation
+            │
+            ▼
+Data Augmentation
+            │
+            ▼
+ImageNet Normalization
+            │
+            ▼
+Pretrained VGG16 Frontend
+            │
+            ▼
+CSRNet Dilated Backend
+            │
+            ▼
+Density Map Prediction
+            │
+            ▼
+Combined Loss
+(MSE Density Loss + Smooth L1 Count Loss)
+            │
+            ▼
+Adam Optimizer + AMP + Learning Rate Scheduler
+            │
+            ▼
+Best Model Selection
+            │
+            ▼
+Prediction on Test Images
+            │
+            ▼
+Crowd Count Estimation
+            │
+            ▼
+MAE & RMSE Evaluation
+```
+
+---
+
+# Work Completed
+
+## 1. Dataset Preparation
+
+- Downloaded ShanghaiTech Part A Dataset.
+- Organized training and testing directories.
+- Parsed annotation (`.mat`) files containing head coordinates.
+
+---
+
+## 2. Geometry-Adaptive Density Map Generation
+
+Implemented geometry-adaptive Gaussian kernels for density map generation.
+
+### Improvements
+
+- KD-Tree based nearest-neighbor distance computation.
+- Adaptive Gaussian sigma for each annotated head.
+- Preserved total crowd count by normalizing density maps.
+- Density map sum equals the actual ground truth count.
+
+---
+
+## 3. Data Augmentation
+
+Implemented data augmentation to improve model generalization.
+
+Current augmentations include:
+
+- Horizontal Flip
+- Brightness Adjustment
+- Contrast Adjustment
+- Gaussian Noise
+
+---
+
+## 4. Image Preprocessing
+
+Implemented ImageNet normalization to match the pretrained VGG16 feature extractor.
+
+Normalization:
+
+```
+Mean = [0.485, 0.456, 0.406]
+
+Std  = [0.229, 0.224, 0.225]
+```
+
+---
+
+## 5. CSRNet Architecture
+
+Implemented CSRNet consisting of:
+
+### Frontend
+
+- Pretrained VGG16 convolutional layers
+- Feature extraction
+
+### Backend
+
+- Dilated convolution layers
+- High-resolution density estimation
+
+---
+
+## 6. Loss Function
+
+Implemented a combined loss function consisting of:
+
+### Density Loss
+
+- Mean Squared Error (MSE)
+
+### Count Loss
+
+- Smooth L1 Loss
+
+This improves both:
+
+- Pixel-wise density estimation
+- Overall crowd count prediction
+
+---
+
+## 7. Training Pipeline
+
+Implemented:
+
+- Mixed Precision Training (AMP)
+- Adam Optimizer
+- Gradient Clipping
+- Validation Split
+- Learning Rate Scheduler
+- Automatic Checkpoint Saving
+
+Saved checkpoints include:
+
+- latest model
+- best model
+- epoch checkpoints
+- final trained model
+
+---
+
+## 8. Prediction Pipeline
+
+Implemented inference pipeline capable of:
+
+- Loading trained model
+- Predicting density maps
+- Estimating crowd count
+- Visualizing predictions
+
+---
+
+## 9. Evaluation Pipeline
+
+Implemented evaluation metrics:
+
+- Mean Absolute Error (MAE)
+- Root Mean Squared Error (RMSE)
+
+---
+
+## 10. GPU Training
+
+Configured training using CUDA-enabled PyTorch.
+
+Current setup:
+
+- NVIDIA RTX 3050 Laptop GPU
+- CUDA-enabled PyTorch
+- Automatic Mixed Precision (AMP)
+
+---
+
+# Current Status
+
+✅ Dataset prepared
+
+✅ Geometry-adaptive density maps generated
+
+✅ Data augmentation implemented
+
+✅ Image normalization implemented
+
+✅ CSRNet architecture completed
+
+✅ Training pipeline completed
+
+✅ Prediction pipeline completed
+
+✅ Evaluation pipeline completed
+
+✅ GPU training configured
+
+✅ Model training in progress
+
+---
+
+# Training Progress
+
+Current observations:
+
+- Model successfully trains on GPU.
+- Best model checkpoint is automatically saved.
+- Validation MAE is continuously monitored.
+- Training is progressing normally without instability.
+
+Example (Epoch 1):
+
+```
+Training Loss : 0.109232
+
+Training MAE  : 282.95
+
+Validation Loss : 0.051859
+
+Validation MAE  : 167.41
+
+Best Model Saved
+```
+
+---
+
+# Technologies Used
+
+- Python
+- PyTorch
+- Torchvision
+- OpenCV
+- NumPy
+- SciPy
+- Matplotlib
+- CUDA
+- CSRNet
+- ShanghaiTech Dataset
+
+---
+
+# Project Directory
+
+```
+project/
+│
+├── checkpoints/
+├── dataset/
+│   └── ShanghaiTech/
+│
+├── models/
+│   └── csrnet.py
+│
+├── scripts/
+│   ├── train.py
+│   ├── predict.py
+│   ├── evaluate.py
+│   └── generate_density_maps.py
+│
+├── utils/
+│
+└── README.md
+```
+
+---
+
+# Work Remaining
+
+The following tasks are planned before project completion:
+
+## Complete Model Training
+
+- Train CSRNet for all epochs.
+- Monitor validation MAE and RMSE.
+- Select the best-performing checkpoint.
+
+---
+
+## Final Evaluation
+
+Evaluate the trained model on the ShanghaiTech Part A test set.
+
+Metrics to report:
+
+- MAE
+- RMSE
+
+---
+
+## Result Visualization
+
+Generate visual outputs including:
+
+- Original Image
+- Ground Truth Density Map
+- Predicted Density Map
+- Estimated Crowd Count
+
+---
+
+## Performance Comparison
+
+Compare the proposed model with:
+
+- Original CSRNet
+- MCNN
+- Other crowd counting approaches (if required)
+
+---
+
+## Stampede Risk Estimation
+
+Extend crowd counting into crowd safety by defining crowd-density thresholds.
+
+Possible categories:
+
+- Low Density
+- Moderate Density
+- High Density
+- Critical Density (Potential Stampede Risk)
+
+---
+
+## Documentation
+
+Complete:
+
+- Project Report
+- Methodology
+- Flowchart
+- Architecture Diagram
+- Experimental Results
+- Conclusion
+- Future Scope
+
+---
+
+# Future Enhancements
+
+Possible improvements include:
+
+- Real-time crowd monitoring using CCTV streams
+- Crowd flow analysis
+- Heatmap visualization
+- Crowd anomaly detection
+- Stampede early warning system
+- Web-based monitoring dashboard
+- YOLO + CSRNet hybrid architecture
+- Multi-camera crowd analysis
+
+---
+
+# Authors
+
+BE Final Year Project
+
+**AI-Based Stampede Prediction and Crowd Density Estimation using CSRNet**
