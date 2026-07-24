@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# Virtual Environment
+venv/
+.venv/
+venv310/
+
+# macOS
+.DS_Store
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Dataset
+dataset/
+
+# ===========================
+
+# Ignore training checkpoints
+
+# Keep final_csrnet.pth
+
+# ===========================
+
+checkpoints/best_csrnet.pth
+checkpoints/csrnet_epoch_50.pth
+
+checkpoints/latest_csrnet_checkpoint.pth
+
+#uncomment this when needed --->>>>
+# # Generated outputs
+# outputs/
+
+# # Personal files
+# updates.txt
+# workflow.txt

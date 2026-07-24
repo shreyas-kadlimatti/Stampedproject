@@ -1,0 +1,52 @@
+1.So firstly extracted head points in a single image and took a count of the head.(load_data.py)
+2.Secondly what I did was took a density map for a single image.(generate_density.py)
+3.Further I got to know that head count is not possible on a large datasets as there are more number of images so I decided to go with density map
+4.I created a folder (density_maps) which stores density maps of all images.
+5.So density map for all the images of train_data was stored.(generate_all_density_maps.py)
+
+
+Dataset Images
+      +
+Head Annotations
+            ↓
+Density Map Generation   ✅
+            ↓
+Training Dataset Creation
+            ↓
+CNN Training
+            ↓
+Crowd Prediction
+            ↓
+Stampede Risk Analysis
+
+| Feature               | MCNN             | CSRNet      |
+| --------------------- | ---------------- | ----------- |
+| Architecture          | Multi-column CNN | Dilated CNN |
+| Accuracy              | Moderate         | High        |
+| Dense Crowd Handling  | Good             | Excellent   |
+| ShanghaiTech Part_A   | Older benchmark  | Much better |
+| Complexity            | Easier           | Moderate    |
+| Modern Research Usage | Less common now  | Widely used |
+| Stampede Suitability  | Decent           | Strong      |
+
+
+Image
+   ↓
+CSRNet
+   ↓
+Predicted Density Map
+   ↓
+Compare With Ground Truth Density Map
+   ↓
+Loss Calculation
+   ↓
+Backpropagation
+   ↓
+Weight Update
+
+overcrowding analysis
+dangerous region detection
+motion analysis
+optical flow
+LSTM prediction
+stampede risk estimation
